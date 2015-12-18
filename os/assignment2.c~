@@ -1,0 +1,33 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+#define MAXSIZE 1000000
+
+int main (void)
+{
+     int pid[3], i, j, buffer[MAXSIZE], p;
+
+     for (i=0; i<3; i++) {
+	  if ((pid[i] = fork()) == 0) {
+	       printf("Child No. %d; PID: %d; PPID %d\n",  i, getpid(),getppid());
+	       for (j=i*MAXSIZE/10; j<(i+1)*MAXSIZE/10; j++) {
+		    buffer[j] = j;
+	       }
+	       p = 0;
+	     //  break;
+	  }// else
+	       //p = 1;
+     }
+
+    // if (p == 1) {
+	  for (i=0; i<3; i++)
+	      waitpid ( NULL);
+
+	  for (i=0; i<MAXSIZE; i++)
+	       if (buffer[i] != i)
+		   // printf("Error at %d (buffer[%d] = %d)\n", i, i, buffer[i]);
+ //    }
+
+     exit(0);
+}

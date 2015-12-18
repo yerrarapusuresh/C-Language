@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#define READ 0
+#define WRITE 1
+
+int main(void)
+{
+     int p[2], pid;
+     char line[81];
+     FILE *fp;
+
+     if (pipe(p) != 0) {
+	  fprintf(stderr, "Error in Creating Pipe\n");
+	  exit(1);
+     }
+
+     if ((pid = fork()) == 0) {
+	  close(p[WRITE]);
+
+	  while (read(p[READ], line, 80) > 0) {
+	       printf("Child: %s", line);
+	  }
+
+	  close(p[READ]);
+     } else {
+	  close(p[READ]);
+
+/*	  if ((fp = fopen("classPipe1.c", "r")) == NULL) {
+	       fprintf(stderr, "Error in reading file pipe-1.c\n");
+	       exit(1);
+	  } 
+*/
+	int i=100 , num[3] ;
+	char buff[3][5];
+	char final[50];
+	int x , y , z;
+	//  for(i = 0 ; i < 5 ;i++ )
+	{
+		sprintf(final,"%d %d %d",i ,i ,i);
+		printf("this is string %s",final);
+		sscanf(final,"%d %d %d",&x,&y,&z);
+		printf("%d %d %d\n",x,y,z);
+	  }
+	  close(p[WRITE]);
+
+	  waitpid(pid, NULL, 0);
+     }
+
+     exit(0);
+}

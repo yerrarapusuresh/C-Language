@@ -1,0 +1,63 @@
+void writef(FILE * ifp , FILE * ofp,Record * head)
+{
+	char buff[MAX];
+	Record * temprecord ;
+	int i ;
+	while(fgets(buff, MAX, ifp) != NULL)
+	{
+	
+		if(strstr(buff, "#define") == NULL)
+		{
+			char * tok ;
+			bool flag = false ;
+			for(tok = strtok(buff," ") ; tok != NULL ; tok = strtok(NULL," "))
+			{
+				char * foo = strstr(tok , "\"");
+
+				if(foo != NULL ||flag == true)
+				{
+					if(flag == true && foo != NULL)
+					{
+						//if(tok[foo-tok - 1] != '\\')
+							flag == false ;
+					}
+					else
+					flag = true ;
+					printf("%s ",tok);
+
+
+
+				}
+				else
+				{
+
+				temprecord = search(head , tok);
+
+
+				if(temprecord != NULL)
+				{
+					char * loc = strstr(tok,temprecord->find);
+					char c = tok[loc - tok + strlen(temprecord->find)] ;
+					if(isalnum(c) || c == '_')
+					{
+						printf("%s ",tok );
+					}
+					else{
+					
+
+
+					for( i = 0 ; i < loc - tok ; i++ )
+						printf("%c",tok[i]);
+					printf("%s",temprecord->replace);
+					printf("%s ",&tok[i + strlen(temprecord->find)]);
+				}
+
+				}
+				else
+					printf("%s ",tok );
+			}
+
+			}
+		}
+	}
+}

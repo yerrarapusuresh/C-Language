@@ -1,0 +1,15 @@
+#include <stdio.h>
+
+
+int main()
+{
+	char ch ;
+	ch = getch();
+	while (ch != EOF)
+	{
+		putchar(ch);
+		ch = getch();
+	}
+	printf("i recieved signal from the user bye \n");
+
+}

@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+void strRev(char  str[]) ;
+int strLen(char  str[]);
+
+int main()
+{
+	char input[20];
+	printf("Enter any String to reverse : ");
+	scanf("%s",input);
+	strRev(input);
+	printf("\nReverse of String is  %s",input);
+}
+
+void strRev(char str[])
+{
+	int i ,j ;
+	char temp ;
+	int len = strLen(str)-1;
+	for(i = 0,j = len;i < j ;i++,j--)
+	{
+		temp = str[i] ;
+		str[i] = str[j] ;
+		str[j] = temp ;
+	}
+}
+
+int strLen(char str[])
+{
+	int i = 0 ; ;
+	while(str[i] != '\0')
+		i++ ;
+	return i ;
+}
